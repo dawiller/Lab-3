@@ -20,9 +20,9 @@ public class VolunteerManager {
   /**
    * Creates a new VolunteerManager.
    */
-  public VolunteerManager() {
+  public VolunteerManager(Volunteer newVolunteer) {
     System.out.println("Welcome to the Volunteer Manager");
-    workers = new HashSet<Volunteer>();
+    volunteer = newVolunteer;
   }
   
   /**
@@ -73,7 +73,7 @@ public class VolunteerManager {
         add();
         break;
       case 'r': case 'R':
-        remove();
+        reset();
         break;
       case 'q': case 'Q':
         quit ();
@@ -88,23 +88,25 @@ public class VolunteerManager {
     Scanner in = new Scanner(System.in);
     volunteer.addHours(in.nextDouble());
   }
-    /**
-     * Terminate the VolunteerManager program.
-     */
-    private void quit() {        
-      System.out.println("Now exiting the Volunteer Manager\n");
-      System.exit(0);
-    }
-    private void remove(){
-    
-    }
-    /**
-     * Creates and runs a VolunteerManager.
-     * 
-     * @param args the command line arguments (not used)
-     */
-    public static void main (String args[]) {
-      VolunteerManager manager = new VolunteerManager ();
-      manager.runManager();
-    }
+  
+  private void reset()
+  {
+    volunteer.resetHours(); 
   }
+  /**
+   * Terminate the VolunteerManager program.
+   */
+  private void quit() {        
+    System.out.println("Now exiting the Volunteer Manager\n");
+    System.exit(0);
+  }
+  private void remove(){
+    
+  }
+  /**
+   * Creates and runs a VolunteerManager.
+   * 
+   * @param args the command line arguments (not used)
+   */
+
+}
