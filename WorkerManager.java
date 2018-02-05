@@ -98,11 +98,11 @@ public class WorkerManager {
   }
   
   /**
-    * Prompts the user for the type of worker to add,
-    * creates the appropriate worker type,
-    * and adds the worker to the set.
-    *
-    */
+   * Prompts the user for the type of worker to add,
+   * creates the appropriate worker type,
+   * and adds the worker to the set.
+   *
+   */
   private void add() {
     System.out.println();
     System.out.println("Which type of worker do you want to add?");
@@ -146,91 +146,203 @@ public class WorkerManager {
   }
   
   /**
-    * Gets data for and creates a new Volunteer
-    */
+   * Gets data for and creates a new Volunteer
+   */
   private Worker newVolunteer() {
     // use the AcceptCommand method as a model to prompt for and get the data
     // you need for a Volunteer (name and hours)
-    return new Volunteer(/* fill in the appropriate parameters */);
+    System.out.print("Enter the name of the new Volunteer: ");
+    Scanner in = new Scanner(System.in);
+    String newVolunteerName = in.next();
+    System.out.print("Enter the hours of the new Volunteer: ");
+    Scanner inn = new Scanner(System.in);
+    double newVolunteerHours = inn.nextDouble();
+    return new Volunteer(newVolunteerName, newVolunteerHours);
   } 
   
   /**
-    * Get data for and creates a new HourlyEmployee.
-    */
+   * Get data for and creates a new HourlyEmployee.
+   */
   private Worker newHourlyEmployee() {
     // use the AcceptCommand method as a model to prompt for and get the data
     // you need for an HourlyEmployee (name,  hours and hourly pay rate)
-    return new HourlyEmployee(/* fill in the appropriate parameters */);
+    System.out.print("Enter the name of the new Employee: ");
+    Scanner in = new Scanner(System.in);
+    String newHourlyEmployeeName = in.next();
+    System.out.print("Enter the hours of the new Employee: ");
+    Scanner inn = new Scanner(System.in);
+    double newHourlyEmployeeHours = inn.nextDouble();
+    return new HourlyEmployee(newHourlyEmployeeName, newHourlyEmployeeHours);
   } 
   
   /**
-    * Gets data for and creates a new SalariedEmployee.
-    */
+   * Gets data for and creates a new SalariedEmployee.
+   */
   private Worker newSalariedEmployee() {
     // use the AcceptCommand method as a model to prompt for and get the data
     // you need for a SalariedEmployee (name and salary)
-    return new SalariedEmployee(/* fill in the appropriate parameters */);
+    System.out.print("Enter the name of the new Salaried Employee: ");
+    Scanner in = new Scanner(System.in);
+    String newSalariedName = in.next();
+    System.out.print("Enter the new Salary: ");
+    Scanner inn = new Scanner(System.in);
+    double newSalary = inn.nextDouble();
+    return new SalariedEmployee(newSalariedName, newSalary);
   } 
   
   /**
-    * Prompt the user for a worker name and remove that worker from the set;
-    * report if the worker is not found.
-    */
+   * Prompt the user for a worker name and remove that worker from the set;
+   * report if the worker is not found.
+   */
   private void remove() {
     // Fill in appropriate code
+    System.out.print("Enter the name to be removed: ");
+    Scanner in = new Scanner(System.in);
+    boolean removed = workers.remove(in);
+    if(removed)
+    {
+      System.out.print(in + " was removed from the list of workers");
+    }
+    else
+    {
+      System.out.print(in + " was not found in list, or has already been removed");
+    }
+    
   }
   
   /**
-    * Prompt the user for a worker name and find the worker;
-    * if the worker is found, create a VolunteerManager, HourlyEmployeeManager or
-    * SalariedEmployeeManager on that worker and run it;
-    * otherwise report that the worker is not found.
-    */
+   * Prompt the user for a worker name and find the worker;
+   * if the worker is found, create a VolunteerManager, HourlyEmployeeManager or
+   * SalariedEmployeeManager on that worker and run it;
+   * otherwise report that the worker is not found.
+   */
   private void manage() {
     // Fill in appropriate code
+    System.out.print("Enter the name to be found: ");
+    Scanner in = new Scanner(System.in);
   }
   
   /**
-    * Prompt the user for the type of report desired: all workers, hourly workers,
-    * all employees, volunteers, hourly employees or salaried employees;
-    * print a list of all the workers in the selected category.
-    */
+   * Prompt the user for the type of report desired: all workers, hourly workers,
+   * all employees, volunteers, hourly employees or salaried employees;
+   * print a list of all the workers in the selected category.
+   */
   private void report() {
     // Fill in appropriate code
+    System.out.print("Enter the category of worker to be found: ");
+    Scanner in = new Scanner(System.in);
+    if(in.equals("volunteer"))
+    {
+      for(Worker w : workers)
+      {
+        if(w.toString().equals("Volunteer"))
+        {
+          System.out.println("Volunteer: " + w.getName() + ", Hours: " + ((Volunteer)w).getHours());
+        }
+      }
+      
+    }
+    else if(in.equals("HourlyEmployee"))
+    {
+      if(in.equals("HourlyEmployee"))
+      {
+        for(Worker w : workers)
+        {
+          if(w.toString().equals("HourlyEmployee"))
+          {
+            System.out.println("Hourly Employee: " + w.getName() + ", Hours: " + ((HourlyEmployee)w).getHours());
+          }
+        }
+      }
+    }
+    else if(in.equals("SalariedEmployee"))
+    {
+      if(in.equals("SalariedEmployee"))
+      {
+        for(Worker w : workers)
+        {
+          if(w.toString().equals("SalariedEmployee"))
+          {
+            System.out.println("Salaried Employee: " + w.getName() + ", Salary: " + ((SalariedEmployee)w).getMonthlyPay());
+          }
+        }
+      }
+    }
   }
   
   /**
-    * Prompt the user for a file name and save the set to the 
-    * specified file using an ObjectOutputStream;
-    * report an error if an exception occured.
-    */
-  private void save() {
-    // Fill in appropriate code
-  }
-  
-  /**
-   * Prompt the user for a file name and load a new set from the specified
-   * file using an ObjectInputStream;
+   * Prompt the user for a file name and save the set to the 
+   * specified file using an ObjectOutputStream;
    * report an error if an exception occured.
    */
-  private void load() {
+  private void save(){
     // Fill in appropriate code
+    try {
+    System.out.println("Enter name for output file");
+    Scanner in = new Scanner(System.in);
+    FileOutputStream fos = new FileOutputStream(in.nextLine());
+    ObjectOutputStream oos = new ObjectOutputStream(fos);
+    oos.writeObject(workers);}
+    
+    catch(FileNotFoundException fne) {
+      System.err.println("FileNotFoundException");
+      System.err.println(fne);
+      return;
+    }
+    catch(IOException ioe) {
+      System.err.println("IOException");
+      System.err.println(ioe);
+      return;
+    }
+    
+    }
+    
+    /**
+     * Prompt the user for a file name and load a new set from the specified
+     * file using an ObjectInputStream;
+     * report an error if an exception occured.
+     */
+    private void load() {
+      // Fill in appropriate code
+      try {
+    System.out.println("Enter name for input file");
+    Scanner in = new Scanner(System.in);
+    FileInputStream fis = new FileInputStream(in.nextLine());
+    ObjectInputStream ois = new ObjectInputStream(fis);
+    workers = (HashSet<Worker>) ois.readObject();}
+    
+    catch(FileNotFoundException fne) {
+      System.err.println("FileNotFoundException");
+      System.err.println(fne);
+      return;
+    }
+    catch(IOException ioe) {
+      System.err.println("IOException");
+      System.err.println(ioe);
+      return;
+    }
+    catch(ClassNotFoundException cnfe) {
+      System.err.println("ClassNotFoundException");
+      System.err.println(cnfe);
+      return;
+    }
+    }
+    
+    /**
+     * Terminate the WorkerManager program.
+     */
+    private void quit() {        
+      System.out.println("Now exiting the Worker Manager\n");
+      System.exit(0);
+    }
+    
+    /**
+     * Creates and runs a WorkerManager.
+     * 
+     * @param args the command line arguments (not used)
+     */
+    public static void main (String args[]) {
+      WorkerManager manager = new WorkerManager ();
+      manager.runManager();
+    }
   }
-  
-  /**
-   * Terminate the WorkerManager program.
-   */
-  private void quit() {        
-    System.out.println("Now exiting the Worker Manager\n");
-  }
-  
-  /**
-   * Creates and runs a WorkerManager.
-   * 
-   * @param args the command line arguments (not used)
-   */
-  public static void main (String args[]) {
-    WorkerManager manager = new WorkerManager ();
-    manager.runManager();
-  }
-}
