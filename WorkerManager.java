@@ -220,6 +220,29 @@ public class WorkerManager {
     // Fill in appropriate code
     System.out.print("Enter the name to be found: ");
     Scanner in = new Scanner(System.in);
+    if(workers.contains(in))
+    {
+      for(Worker w : workers) 
+      {
+        if(w.getName().equals(in))
+        {
+          if(w.toString().equals("Volunteer"))
+          {
+            VolunteerManager(w);
+          }
+          else if(w.toString().equals("HourlyEmployee"))
+          {
+            HourlyEmployeeManager(w);
+          }
+          else
+          {SalariedEmployeeManager(w);}
+        }
+      } 
+    }
+    else
+    {
+      System.out.println("Worker does not exist in List");
+    }
   }
   
   /**
